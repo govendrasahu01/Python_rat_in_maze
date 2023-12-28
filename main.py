@@ -1,6 +1,6 @@
 import random
 
-def generat_maze(n):
+def generate_maze(n):
     data = []
     for i in range(n):
         temp = []
@@ -9,7 +9,7 @@ def generat_maze(n):
             if chance <= .25:
                 temp.append("▒")
             else:
-                temp.append("○")
+                temp.append(".")
         data.append(temp)
     data[0][0] = "S"
     data[-1][-1] = "E"
@@ -35,16 +35,67 @@ def print_maze(data):
     print("\033[0;37;40m\n",end='')
     print()
 
+def print_banner():
+    print()
+    print()
+    print("\033[0;31;40m ------",sep='',end='')
+    print("\033[1;33;40m Rat in Maze",sep='',end='')
+    print("\033[0;31;40m ------",sep='',end='')
+    print()
+    print()
 
-print()
-print()
-print("\033[0;31;40m ------",sep='',end='')
-print("\033[1;33;40m Rat in Maze",sep='',end='')
-print("\033[0;31;40m ------",sep='',end='')
-print()
-print()
+def solve(i = 0,j=0):
+    global solved_data
+    global flag
+    n = len(solved_data)
 
-n = 12
-data = generat_maze(n)
+    if flag or (i == n-1 and j == n-1):
+        flag = True
+        return
+    
+    if i < n-1 and solved_data[i+1][j] not in "▒☻":
+        solved_data[i+1][j] = "☻"
+        # print("down")
+        solve(i+1,j)
+
+        if flag == False:
+            solved_data[i+1][j] = "."
+    
+    if flag == False and j < n-1 and solved_data[i][j+1] not in "▒☻":
+        solved_data[i][j+1] = "☻"
+        # print("right")
+        solve(i,j+1)
+        if flag == False:
+            solved_data[i][j+1] = "."
+    
+    if flag == False and i>0 and solved_data[i-1][j] not in "▒☻":
+        solved_data[i-1][j] = "☻"
+        # print("up")
+        solve(i-1,j)
+        if flag == False:
+            solved_data[i-1][j] = "."
+
+    if flag == False and j>0 and solved_data[i][j-1] not in "▒☻":
+        solved_data[i][j-1] = "☻"
+        # print("left")
+        solve(i,j-1)
+        if flag == False:
+            solved_data[i][j-1] = "."
+
+# main programm start here -----
+    # ○
+    # ▒
+    # ☻
+
+print_banner()
+n = 6
+data = generate_maze(n)
+# data = [['S', '▒', '.', '.', '.', '.'],['.', '▒', '.', '▒', '▒', '.'],['.', '▒', '.', '▒', '.', '.'],['.', '▒', '.', '▒', '.', '▒'],['.', '▒', '.', '▒', '.', '.'],['.', '.', '.', '▒', '▒', 'E']]
 
 print_maze(data)
+
+flag = False
+solved_data = data
+solve()
+print(flag)
+print_maze(solved_data)
