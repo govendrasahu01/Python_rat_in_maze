@@ -79,19 +79,19 @@ def solve_all_ways(i = 0,j=0):
         flag = True
         return
     
-    if flag == False and j < n-1 and solved_data[i][j+1] not in "▒☻":
-        solved_data[i][j+1] = "☻"
-        # print("right")
-        solve_all_ways(i,j+1)
-        if flag == False:
-            solved_data[i][j+1] = "◌"
-
     if flag == False and i < n-1 and solved_data[i+1][j] not in "▒☻":
         solved_data[i+1][j] = "☻"
         # print("down")
         solve_all_ways(i+1,j)
         if flag == False:
             solved_data[i+1][j] = "◌"
+
+    if flag == False and j < n-1 and solved_data[i][j+1] not in "▒☻":
+        solved_data[i][j+1] = "☻"
+        # print("right")
+        solve_all_ways(i,j+1)
+        if flag == False:
+            solved_data[i][j+1] = "◌"
     
     if flag == False and i>0 and solved_data[i-1][j] not in "▒☻":
         solved_data[i-1][j] = "☻"
@@ -129,30 +129,46 @@ highlight("Well-Come To")
 highlight("Rat in Maze")
 print()
 
-n = int_input("Maze Size?: ",3,12)
+choice = 2
+while choice != 3:
 
-data = generate_maze(n)
-print_maze(data)
+    if choice == 2:
+        n = int_input("Maze Size?: ",3,15)
+        data = generate_maze(n)
+        print_maze(data)
 
-print()
-print("1. Print the Path")
-print("2. Generate another Maze")
-print("3. Exit the Game")
+    elif choice == 1:
+        flag = False
+        solved_data = data.copy()
 
-choice = int_input("Enter your choice (1/2/3): ",1,3)
+        solve()
+        if flag == False:
+            solve_all_ways()
+        if flag:
+            solved_data[-1][-1] = "E"
+            
+            highlight("Solved Maze")
+            print_maze(solved_data)
+        else:
+            highlight("Rat can't cross the maze 😟")
+            print()
+        
+        flag = False
+        solved_data = data.copy()
 
 
+    if choice != 1:
+        print()
+        print("1. Print the Path")
+        print("2. Generate another Maze")
+        print("3. Exit the Game")
 
+        choice = int_input("Enter your choice (1/2/3): ",1,3)
+    else:
+        print()
+        print("1. XXXXXXXXXXXXX")
+        print("2. Generate another Maze")
+        print("3. Exit the Game")
 
-# flag = False
-# solved_data = data
-
-# solve()
-# if flag == False:
-#     solve_all_ways()
-# if flag:
-#     solved_data[-1][-1] = "E"
-#     print_maze(solved_data)
-# else:
-#     highlight("Rat can't cross the maze 😟")
-#     print()
+        choice = int_input("Enter your choice (1/2/3): ",2,3)
+print(int_input())
