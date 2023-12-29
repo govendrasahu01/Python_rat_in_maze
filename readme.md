@@ -2,7 +2,8 @@ Rat in Maze - README
 
 
 Overview
-    The "Rat in Maze" project is a Python program that simulates a maze-solving scenario where a rat navigates through a maze from the starting point (S) to the endpoint (E). The maze is randomly generated with obstacles represented by "▒" and open paths represented by "◌". The rat's movements are displayed on the console, and the program provides options to solve the maze and print the path or generate a new maze.
+
+The "Rat in Maze" project is a Python program that simulates a maze-solving scenario where a rat navigates through a maze from the starting point (S) to the endpoint (E). The maze is randomly generated with obstacles represented by "▒" and open paths represented by "◌". The rat's movements are displayed on the console, and the program provides options to solve the maze and print the path or generate a new maze.
 
 Features 
 
