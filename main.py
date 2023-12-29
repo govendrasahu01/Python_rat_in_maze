@@ -171,4 +171,3 @@ while choice != 3:
         print("3. Exit the Game")
 
         choice = int_input("Enter your choice (1/2/3): ",2,3)
-print(int_input())
